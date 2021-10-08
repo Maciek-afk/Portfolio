@@ -16,6 +16,7 @@ public class NV extends JFrame implements ActionListener{
     public String fd, label;
     public double kcal, FatG, SFatG, CarbG, SugG, ProtG, SodiumMg;
     ImageIcon img;
+    public int a, b;
 
 
     NV() {
@@ -175,14 +176,46 @@ public class NV extends JFrame implements ActionListener{
 
             //run, walk, swim, bike;
 
+            int a;
+            int b;
+
             run = new JLabel();
-            run.setBounds(1, 1, 50, 50);
-            run.setText("run for : " + "5" + " min");
+            run.setBounds(30, 260, 175, 15);
+            if (enrg > 62){
+                a = (int) enrg / 62;
+                b = (int) ((enrg / 62) * 1000) - a * 1000;
+                run.setText("run : " + a + " km and " + b + " m");
+            }else if (enrg < 62){
+                a = (int) ((enrg/62) * 1000);
+                run.setText("run : " + a + " m"); //using if so that there wont be unnecesary 0km and x m
+            }else
+                run.setText("run : 1 m");   //anything left is 62/62 which is equal 1, so there is no point in doing calculations
             run.setVisible(true);
+
+            walk = new JLabel();
+            walk.setBounds(30, 295, 150, 15);
+           /* if (enrg > 300){
+                a = (int) enrg/300;
+                b = (int) (enrg/300)
+            }
+            */
+            a =(int) enrg/300;
+            walk.setText("walk for : " + a + " min");
+            walk.setVisible(true);
+
+            swim = new JLabel();
+            swim.setBounds(220, 260, 150, 15);
+            swim.setText("swim for : " + "5" + " min");
+            swim.setVisible(true);
+
+            bike = new JLabel();
+            bike.setBounds(220, 295, 150, 15);
+            bike.setText("bike for : " + "5" + " min");
+            bike.setVisible(true);
 
             frame2 = new JFrame();
             frame2.setTitle("Nutrition Values - results");
-            frame2.setSize(400, 400);
+            frame2.setSize(400, 360);
             frame2.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
             frame2.setVisible(true);
             frame2.add(Energy);
@@ -194,14 +227,12 @@ public class NV extends JFrame implements ActionListener{
             frame2.add(Sodium);
             frame2.add(pic);
             frame2.add(binfo);
-            frame2.getContentPane().add(new Drawing());
-            frame2.setResizable(false);
             frame2.add(run);
-          /*  frame2.add(walk);
+            frame2.add(walk);
             frame2.add(swim);
             frame2.add(bike);
-
-           */
+            frame2.getContentPane().add(new Drawing());
+            frame2.setResizable(false);
             frame2.setLocationRelativeTo(null);
 
 
