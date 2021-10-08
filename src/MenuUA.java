@@ -33,7 +33,7 @@ public class MenuUA extends JFrame implements ActionListener {
 
         BMI = new JButton();
         BMI.setText("Check Your BMI");
-        BMI.setBounds(135, 200, 250, 50);
+        BMI.setBounds(135, 200, 150, 50);
         BMI.setVisible(true);
         BMI.addActionListener(this);
         BMI.setBorder(new RoundBtn(10));

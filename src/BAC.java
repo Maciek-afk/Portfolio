@@ -145,11 +145,11 @@ The following are considered as one drink:
             int drinks = Integer.parseInt(AAmount.getText());
 
             ac = (String) AType.getSelectedItem();
-
+/*
             if (male.isSelected()){
 
             }
-
+*/
 
             frame2 = new JFrame();
             frame2.setTitle("Fit Ass - BAC results");

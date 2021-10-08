@@ -66,7 +66,7 @@ public class NV extends JFrame implements ActionListener{
         foodAmount.setLayout(null);
         add(foodAmount);
 
-        String[] meals = {"Apple", "Croissant", "Salty Sticks", "Peanuts"};
+        String[] meals = {"Apple", "Croissant", "Salty Sticks", "Peanuts", "Fries"};
         foodType = new JComboBox(meals);
         foodType.addActionListener(this);
         foodType.setVisible(true);
@@ -119,6 +119,15 @@ public class NV extends JFrame implements ActionListener{
                 ProtG = 29;
                 SodiumMg = 18;
                 label = "peanuts.jpg";
+            }else if(fd.equalsIgnoreCase("Fries")){
+                kcal = 289;
+                FatG = 14;
+                SFatG = 1.3;
+                CarbG = 36;
+                SugG = 0.3;
+                ProtG = 3.4;
+                SodiumMg = 0.69;
+                label = "fries.png";
             }
 
             Energy = new JLabel();
@@ -181,36 +190,67 @@ public class NV extends JFrame implements ActionListener{
 
             run = new JLabel();
             run.setBounds(30, 260, 175, 15);
+            //using if so that there wont be unnecesary 0km and x m
             if (enrg > 62){
                 a = (int) enrg / 62;
                 b = (int) ((enrg / 62) * 1000) - a * 1000;
-                run.setText("run : " + a + " km and " + b + " m");
+                if (b == 0)
+                    run.setText("run : " + a + " km");  //getting rid of unnecessary "0 min" part
+                else
+                    run.setText("run : " + a + " km and " + b + " m");
             }else if (enrg < 62){
                 a = (int) ((enrg/62) * 1000);
-                run.setText("run : " + a + " m"); //using if so that there wont be unnecesary 0km and x m
+                run.setText("run : " + a + " m");
             }else
-                run.setText("run : 1 m");   //anything left is 62/62 which is equal 1, so there is no point in doing calculations
+                run.setText("run : 1 km");   //anything left is 62/62 which is equal 1, so there is no point in doing calculations
             run.setVisible(true);
 
             walk = new JLabel();
-            walk.setBounds(30, 295, 150, 15);
-           /* if (enrg > 300){
+            walk.setBounds(30, 295, 185, 15);
+            if (enrg > 300){
                 a = (int) enrg/300;
-                b = (int) (enrg/300)
-            }
-            */
-            a =(int) enrg/300;
-            walk.setText("walk for : " + a + " min");
+                b = (int) ((((enrg/300)*1000 - a*1000) / 1000) * 60);
+                if (b == 0)
+                    walk.setText("walk : " + a + " h and " + b + " min");
+                else
+                    walk.setText("walk : " + a + " h and " + b + " min");
+            }else if (enrg < 300){
+                b = (int) ((((enrg/300)*1000)/1000)*60);
+                walk.setText("walk : " + b + " min");
+            }else
+                walk.setText("walk : 1 h");
             walk.setVisible(true);
 
             swim = new JLabel();
-            swim.setBounds(220, 260, 150, 15);
-            swim.setText("swim for : " + "5" + " min");
+            swim.setBounds(215, 260, 175, 15);
+            if (enrg>350){
+                a = (int) enrg / 350;
+                b = (int) ((enrg / 350) * 1000) - a * 1000;
+                if (b == 0)
+                    swim.setText("swim : " + a + " km");
+                else
+                    swim.setText("swim : " + a + " km and " + b + " m");
+            }else if (enrg<350){
+                a = (int) ((enrg/350) * 1000);
+                swim.setText("swim : " + a + " m");
+            }else
+                swim.setText("swim : 1 km");
             swim.setVisible(true);
 
             bike = new JLabel();
-            bike.setBounds(220, 295, 150, 15);
-            bike.setText("bike for : " + "5" + " min");
+            bike.setBounds(215, 295, 175, 15);
+            if (enrg > 450){
+                a = (int) enrg/450;
+                b = (int) ((((enrg/450)*1000 - a*1000) / 1000) * 60);
+                if (b == 0)
+                    bike.setText("bike : " + a + " h and " + b + " min");
+                else
+                    bike.setText("bike : " + a + " h and " + b + " min");
+            }else if (enrg < 450){
+                b = (int) ((((enrg/450)*1000)/1000)*60);
+                bike.setText("bike : " + b + " min");
+            }else
+                bike.setText("bike : 1 h");
             bike.setVisible(true);
 
             frame2 = new JFrame();
