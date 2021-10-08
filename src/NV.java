@@ -12,7 +12,7 @@ public class NV extends JFrame implements ActionListener{
     JTextField foodAmount;
 
     JFrame frame2;
-    JLabel Energy, Fat, SatFat, Carb, Sug, Prt, Sodium, pic, binfo;
+    JLabel Energy, Fat, SatFat, Carb, Sug, Prt, Sodium, pic, binfo, run, walk, swim, bike;
     public String fd, label;
     public double kcal, FatG, SFatG, CarbG, SugG, ProtG, SodiumMg;
     ImageIcon img;
@@ -173,6 +173,12 @@ public class NV extends JFrame implements ActionListener{
             binfo.setText("<html>In order to burn it you would have to: </html>");
             binfo.setVisible(true);
 
+            //run, walk, swim, bike;
+
+            run = new JLabel();
+            run.setBounds(1, 1, 50, 50);
+            run.setText("run for : " + "5" + " min");
+            run.setVisible(true);
 
             frame2 = new JFrame();
             frame2.setTitle("Nutrition Values - results");
@@ -190,7 +196,14 @@ public class NV extends JFrame implements ActionListener{
             frame2.add(binfo);
             frame2.getContentPane().add(new Drawing());
             frame2.setResizable(false);
+            frame2.add(run);
+          /*  frame2.add(walk);
+            frame2.add(swim);
+            frame2.add(bike);
+
+           */
             frame2.setLocationRelativeTo(null);
+
 
         }
         else if (actionEvent.getSource() == menu) {
