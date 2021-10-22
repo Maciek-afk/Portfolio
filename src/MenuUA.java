@@ -43,6 +43,7 @@ public class MenuUA extends JFrame implements ActionListener {
         BMIdef.setText("BMI def");
         BMIdef.setBounds(290, 200, 95, 50);
         BMIdef.setVisible(true);
+        BMIdef.addActionListener(this);
         BMIdef.setBorder(new RoundBtn(10));
         frame.add(BMIdef);
 
@@ -76,7 +77,9 @@ public class MenuUA extends JFrame implements ActionListener {
         if (actionEvent.getSource() == BMI){
             BMI openBMI = new BMI();
             frame.dispose();
-        } else if (actionEvent.getSource() == NV){
+        } else if (actionEvent.getSource() == BMIdef){
+            BMIdef openBMIdef = new BMIdef();
+        }else if (actionEvent.getSource() == NV){
             NV openNV = new NV();
             frame.dispose();
         } else if (actionEvent.getSource() == backToStart){
@@ -85,3 +88,10 @@ public class MenuUA extends JFrame implements ActionListener {
         }
     }
 }
+
+
+/*
+TODO
+
+WHOLE IDEAAAAAAAA
+ */

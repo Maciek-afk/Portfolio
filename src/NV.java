@@ -7,7 +7,7 @@ import java.awt.geom.Line2D;
 public class NV extends JFrame implements ActionListener{
     JFrame frame;
     JLabel FoodType, FoodAmount;
-    JButton menu, check;
+    JButton menu, check, addFood;
     JComboBox foodType;
     JTextField foodAmount;
 
@@ -21,7 +21,7 @@ public class NV extends JFrame implements ActionListener{
 
     NV() {
         frame = new JFrame();
-        setSize(400, 250);
+        setSize(500, 250);
         setVisible(true);
         setLayout(null);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
@@ -51,9 +51,18 @@ public class NV extends JFrame implements ActionListener{
         menu.setBorder(new RoundBtn(10));
         add(menu);
 
+        addFood = new JButton();
+        addFood.setText("Add own food");
+        addFood.setBounds(190, 150, 150, 50);
+        addFood.setVisible(true);
+        addFood.setLayout(null);
+        addFood.addActionListener(this);
+        addFood.setBorder(new RoundBtn(10));
+        add(addFood);
+
         check = new JButton();
         check.setText("Check!");
-        check.setBounds(250, 150, 100, 50);
+        check.setBounds(375, 150, 100, 50);
         check.setVisible(true);
         check.setLayout(null);
         check.addActionListener(this);
@@ -283,3 +292,11 @@ public class NV extends JFrame implements ActionListener{
         }
     }
 }
+
+
+
+/*
+TODO
+
+adding own food
+ */

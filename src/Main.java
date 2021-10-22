@@ -7,3 +7,10 @@ public class Main {
 //        BAC test4 = new BAC();
     }
 }
+
+
+/*
+TODO
+
+checking for integers  e v e r y w h e r e  where needed :))))
+ */

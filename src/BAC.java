@@ -6,20 +6,20 @@ import java.awt.image.Kernel;
 
 public class BAC extends JFrame implements ActionListener {
     JFrame frame;
-    JLabel AlcType, AlcAmount, gender, weight, info;
-    JComboBox AType;
-    JTextField AAmount, wghtIn;
+    JLabel alcoTypeLabel, alcoAmountLabel, gender, weightLabel, time, info;
+    JComboBox alcType;
+    JTextField alcAmount, wghtIn, timeIn;
     JButton calc, menu;
     JRadioButton male, female;
 
     JFrame frame2;
     JLabel yourBAC, BACcat;
-    public String ac;
+    public String alcChosen;
 
 
     BAC(){
         frame = new JFrame();
-        setSize(400, 450);
+        setSize(400, 500);
         setVisible(true);
         setLayout(null);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
@@ -27,59 +27,51 @@ public class BAC extends JFrame implements ActionListener {
         getContentPane().setBackground(new Color(206, 205, 203));
         setResizable(false);
         setLocationRelativeTo(null);
+        
+        
+//          TYPE OF ALCOHOL WITH THE CHOICE
+        
+        
+        alcoTypeLabel = new JLabel();
+        alcoTypeLabel.setBounds( 5, 15, 200, 30);
+        alcoTypeLabel.setText("Type of alcohol");
+        alcoTypeLabel.setVisible(true);
+        add(alcoTypeLabel);
+       
+        alcType = new JComboBox();
+        String[] types = {"Vodka", "Beer", "Wine"};
+        alcType = new JComboBox(types);
+//        alcType.addActionListener(this);
+        alcType.setVisible(true);
+        alcType.setBounds(200, 15, 150, 30);
+        add(alcType);
+        
+        
+//        AMOUNT OF ALCOHOL WITH THE INPUT
+        
 
+        alcoAmountLabel = new JLabel();
+        alcoAmountLabel.setBounds(5, 65, 200, 30);
+        alcoAmountLabel.setText("Alcohol Amount (in drinks)");
+        alcoAmountLabel.setVisible(true);
+        add(alcoAmountLabel);
 
-        AlcType = new JLabel();
-        AlcType.setBounds( 5, 15, 200, 30);
-        AlcType.setText("Type of alcohol");
-        AlcType.setVisible(true);
-        add(AlcType);
+        alcAmount = new JTextField();
+        alcAmount.setBounds(200, 65, 150, 30);
+        alcAmount.setVisible(true);
+        alcAmount.setLayout(null);
+        add(alcAmount);
 
-        AlcAmount = new JLabel();
-        AlcAmount.setBounds(5, 65, 200, 30);
-        AlcAmount.setText("Alcohol Amount (in drinks)");
-        AlcAmount.setVisible(true);
-        add(AlcAmount);
-
+        
+//        GENDER CHOICE WITH 2 CHOICES 
+        
+        
         gender = new JLabel();
         gender.setBounds(5, 115, 200, 30);
         gender.setText("What is Your gender? ");
         gender.setVisible(true);
         add(gender);
-
-        weight = new JLabel();
-        weight.setBounds(5, 165, 200, 30);
-        weight.setText("How much do you weight?");
-        weight.setVisible(true);
-        add(weight);
-
-        info = new JLabel();
-        info.setBounds(0, 225, 400, 80);
-        info.setText("<html><div style='text-align: center;'>" +
-                "The following are considered as one drink:<br/>\n" +
-                " 40 ml of 40% liquor,<br/>\n" +
-                " 350ml of beer,<br/>\n" +
-                " or 150ml of table wine."  +
-                "</div></html>");
-        info.setHorizontalAlignment(SwingConstants.CENTER);
-        info.setVerticalAlignment(SwingConstants.CENTER);
-        info.setVisible(true);
-        add(info);
-
-        AType = new JComboBox();
-        String[] types = {"Vodka", "Beer", "Wine"};
-        AType = new JComboBox(types);
-//        AType.addActionListener(this);
-        AType.setVisible(true);
-        AType.setBounds(200, 15, 150, 30);
-        add(AType);
-
-        AAmount = new JTextField();
-        AAmount.setBounds(200, 65, 150, 30);
-        AAmount.setVisible(true);
-        AAmount.setLayout(null);
-        add(AAmount);
-
+        
         /*
         next to each other
          */
@@ -106,20 +98,72 @@ public class BAC extends JFrame implements ActionListener {
         add(female);
          */
 
+        
+//        WEIGHT WITH INPUT FIELD
+        
+        
+        weightLabel = new JLabel();
+        weightLabel.setBounds(5, 165, 200, 30);
+        weightLabel.setText("How much do you weight?");
+        weightLabel.setVisible(true);
+        add(weightLabel);
+
         wghtIn = new JTextField();
         wghtIn.setBounds(200, 165, 150, 30);
         wghtIn.setVisible(true);
         wghtIn.setLayout(null);
         add(wghtIn);
 
+
+//        TIME WITH INPUT
+
+
+        time = new JLabel();
+        time.setText("Hours since 1st drink?");
+        time.setBounds(5, 215, 200, 30);
+        time.setVisible(true);
+        time.setLayout(null);
+        add(time);
+
+        timeIn = new JTextField();
+        timeIn.setBounds(200, 215, 150, 30);
+        timeIn.setVisible(true);
+        timeIn.setLayout(null);
+        add(timeIn);
+
+
+//        INFO ON LIQ AMOUNTS
+        
+        
+        info = new JLabel();
+        info.setBounds(0, 275, 400, 80);
+        info.setText("<html><div style='text-align: center;'>" +
+                "The following are considered as one drink:<br/>\n" +
+                " 40 ml of 40% liquor,<br/>\n" +
+                " 350ml of beer,<br/>\n" +
+                " or 150ml of table wine."  +
+                "</div></html>");
+        info.setHorizontalAlignment(SwingConstants.CENTER);
+        info.setVerticalAlignment(SwingConstants.CENTER);
+        info.setVisible(true);
+        add(info);
+
+        
+
+        
+
+//        BUTTONS FOR MENU AND CALC
+
+
+
         menu = new JButton("Return to menu");
-        menu.setBounds(25, 330, 160, 50);
+        menu.setBounds(25, 380, 160, 50);
         menu.setVisible(true);
         menu.addActionListener(this);
         add(menu);
 
         calc = new JButton("Calculate");
-        calc.setBounds(220, 330, 160, 50);
+        calc.setBounds(220, 380, 160, 50);
         calc.setVisible(true);
         calc.addActionListener(this);
         add(calc);
@@ -142,12 +186,18 @@ The following are considered as one drink:
             BACcat = new JLabel();
 
             int mass = Integer.parseInt(wghtIn.getText());
-            int drinks = Integer.parseInt(AAmount.getText());
+            int drinks = Integer.parseInt(alcAmount.getText());
 
-            ac = (String) AType.getSelectedItem();
+            alcChosen = (String) alcType.getSelectedItem();
 /*
             if (male.isSelected()){
+                if (weightLabel > x){
 
+                }
+            }else if(female.isSelected()){
+                if (weightLabel > x){
+
+                }
             }
 */
 
@@ -165,3 +215,10 @@ The following are considered as one drink:
         }
     }
 }
+
+
+/*
+TODO
+
+literally whole class
+ */
