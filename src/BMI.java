@@ -4,9 +4,17 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class BMI extends JFrame implements ActionListener {
+    //methods
+    Methods lab = new Methods();
+    Methods button = new Methods();
+    Methods textfield = new Methods();
+    Methods combobox = new Methods();
+
+
     JLabel InWeight, InHeight;
     JTextField getW, getH;
     JButton calc, menu;
+    JComboBox heightInputType, weightInputType;
     
     JFrame frame2;
     JLabel yourBMI, BMIcat, pic, pic1, error;
@@ -24,36 +32,34 @@ public class BMI extends JFrame implements ActionListener {
         setLocationRelativeTo(null);
 
         InWeight = new JLabel();
-        InWeight.setBounds(25, 50, 225, 25);
-        InWeight.setText("Input Your weight (in kg): ");
-        InWeight.setVisible(true);
+        lab.setLabel(InWeight, "Input your weight: ", 25, 50, 150, 25);
 
         InHeight = new JLabel();
-        InHeight.setBounds(25, 125, 225, 25);
-        InHeight.setText("Input Your height (in cm): ");
-        InHeight.setVisible(true);
+        lab.setLabel(InHeight, "Input Your height: ", 25, 125, 150, 25);
 
         getW = new JTextField();
-        getW.setBounds(225, 50, 150, 25);
-        getW.setVisible(true);
+        textfield.setTextField(getW, 175, 50, 125, 25);
 
         getH = new JTextField();
-        getH.setBounds(225, 125, 150, 25);
-        getH.setVisible(true);
+        textfield.setTextField(getH, 175, 125, 125, 25);
+
+        String[] typesW = {"kg", "lbs"};
+        weightInputType = new JComboBox(typesW);
+        combobox.setComboBox(weightInputType, 315, 50, 50, 25);
+
+        String[] typesH = {"cm", "ft"};
+        heightInputType = new JComboBox(typesH);
+        combobox.setComboBox(heightInputType, 315, 125, 50, 25);
 
         calc = new JButton();
-        calc.setText("Calculate");
-        calc.setBounds(250, 185, 125, 50);
+        button.setButton(calc, "Calculate", 250, 185, 125, 50);
         calc.addActionListener(this);
         calc.setBorder(new RoundBtn(10));
-        calc.setVisible(true);
 
         menu = new JButton();
-        menu.setText("Return to the menu");
-        menu.setBounds(25, 185, 175, 50);
+        button.setButton(menu, "Return to the menu", 25, 185, 175, 50);
         menu.addActionListener(this);
         menu.setBorder(new RoundBtn(10));
-        menu.setVisible(true);
 
         add(InWeight);
         add(InHeight);
@@ -61,14 +67,26 @@ public class BMI extends JFrame implements ActionListener {
         add(getH);
         add(calc);
         add(menu);
+        add(weightInputType);
+        add(heightInputType);
     }
 
     @Override
     public void actionPerformed(ActionEvent actionEvent) {
         if (actionEvent.getSource() == calc){
 
+
             double mass = Double.parseDouble(getW.getText());
             double height = Double.parseDouble(getH.getText());
+            String checkW = (String) weightInputType.getSelectedItem();
+            String checkH = (String) heightInputType.getSelectedItem();
+
+            if (checkW.equalsIgnoreCase("lbs"))
+                mass *= 0.45359237;
+
+            if (checkH.equalsIgnoreCase("ft"))
+                height *= 30.48;
+
             double BMInr = (int) (100 * mass / ((height/100) * height));
 
             yourBMI = new JLabel();
@@ -131,10 +149,8 @@ public class BMI extends JFrame implements ActionListener {
                 frame2.add(pic1);
             }else{
                 error = new JLabel();
+                lab.setLabel(error, "BMI OUT OF SCALE", 100, 100, 144, 50);
                 error.setText("BMI OUT OF SCALE");
-                error.setBounds(100, 100, 144, 50);
-                error.setVisible(true);
-                error.setLayout(null);
                 error.setForeground(Color.RED);
                 frame2.add(error);
             }

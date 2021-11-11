@@ -5,18 +5,32 @@ import java.awt.event.ActionListener;
 import java.awt.geom.Line2D;
 
 public class NV extends JFrame implements ActionListener{
+    //methods
+    Methods button = new Methods();
+    Methods lab = new Methods();
+    Methods textfield = new Methods();
+    Methods combobox = new Methods();
+
+    //defining for the main frame
     JFrame frame;
     JLabel FoodType, FoodAmount;
     JButton menu, check, addFood;
-    JComboBox foodType;
+    JComboBox foodType, inputType;
     JTextField foodAmount;
 
-    JFrame frame2;
+    //defining for the result window
+    JFrame frame1;
     JLabel Energy, Fat, SatFat, Carb, Sug, Prt, Sodium, pic, binfo, run, walk, swim, bike;
     public String fd, label;
     public double kcal, FatG, SFatG, CarbG, SugG, ProtG, SodiumMg;
     ImageIcon img;
     public int a, b;
+
+    //defining for adding your own food window
+    JFrame frame2;
+    JLabel energyIn, fatIn, satFatIn, carbIn, sugIn, protIn, sodIn;
+    JTextField enInput, fatInput, satFatInput, carbInput, sugInput, protInput, sodInput;
+    JButton add;
 
 
     NV() {
@@ -31,56 +45,50 @@ public class NV extends JFrame implements ActionListener{
         setLocationRelativeTo(null);
 
         FoodType = new JLabel();
-        FoodType.setBounds(5, 15, 125, 30);
-        FoodType.setText("Type of food: ");
-        FoodType.setVisible(true);
-        add(FoodType);
+        lab.setLabel(FoodType, "Type of food: ", 5, 15, 125, 30);
 
         FoodAmount = new JLabel();
-        FoodAmount.setBounds( 5, 65, 175, 30 );
-        FoodAmount.setText("Amount of food (in g): ");
-        FoodAmount.setVisible(true);
-        add(FoodAmount);
+        lab.setLabel(FoodAmount, "Amount of food: ", 5, 65, 175, 30);
 
-        menu = new JButton();
-        menu.setText("Return to menu");
-        menu.setBounds(10, 150, 150, 50);
-        menu.setVisible(true);
-        menu.setLayout(null);
-        menu.addActionListener(this);
-        menu.setBorder(new RoundBtn(10));
-        add(menu);
-
-        addFood = new JButton();
-        addFood.setText("Add own food");
-        addFood.setBounds(190, 150, 150, 50);
-        addFood.setVisible(true);
-        addFood.setLayout(null);
-        addFood.addActionListener(this);
-        addFood.setBorder(new RoundBtn(10));
-        add(addFood);
-
-        check = new JButton();
-        check.setText("Check!");
-        check.setBounds(375, 150, 100, 50);
-        check.setVisible(true);
-        check.setLayout(null);
-        check.addActionListener(this);
-        check.setBorder(new RoundBtn(10));
-        add(check);
 
         foodAmount = new JTextField();
-        foodAmount.setBounds(190, 65, 150, 30);
-        foodAmount.setVisible(true);
-        foodAmount.setLayout(null);
-        add(foodAmount);
+        textfield.setTextField(foodAmount, 140, 65, 150, 30);
+
+
+        menu = new JButton();
+        button.setButton(menu, "Return to menu", 10, 150, 150, 50);
+        menu.addActionListener(this);
+        menu.setBorder(new RoundBtn(10));
+
+        addFood = new JButton();
+        button.setButton(addFood, "Add own food", 190, 150, 150, 50);
+        addFood.addActionListener(this);
+        addFood.setBorder(new RoundBtn(10));
+
+        check = new JButton();
+        button.setButton(check, "Check!", 375, 150, 100, 50);
+        check.addActionListener(this);
+        check.setBorder(new RoundBtn(10));
+
 
         String[] meals = {"Apple", "Croissant", "Salty Sticks", "Peanuts", "Fries"};
         foodType = new JComboBox(meals);
-        foodType.addActionListener(this);
-        foodType.setVisible(true);
-        foodType.setBounds(140, 15, 200, 30);
+        combobox.setComboBox(foodType, 140, 15, 200 ,30);
+
+        String[] types = {"kg", "g", "lbs", "oz"};
+        inputType = new JComboBox(types);
+        combobox.setComboBox(inputType, 295, 65, 45, 30);
+
+
+        add(FoodType);
+        add(FoodAmount);
+        add(menu);
+        add(addFood);
+        add(check);
+        add(foodAmount);
         add(foodType);
+        add(inputType);
+
     }
 
     @Override
@@ -90,6 +98,17 @@ public class NV extends JFrame implements ActionListener{
 
             fd = (String) foodType.getSelectedItem();
             double amount = Double.parseDouble(foodAmount.getText());
+
+            String check = (String) inputType.getSelectedItem();
+
+            if (check.equalsIgnoreCase("kg"))
+                amount *= 1000;
+            else if (check.equalsIgnoreCase("g"))
+                amount = amount;
+            else if (check.equalsIgnoreCase("lbs"))
+                amount *= 453.59237;
+            else  if (check.equalsIgnoreCase("oz"))
+                amount *= 28;
 
 
             if (fd.equalsIgnoreCase("Apple")){
@@ -140,39 +159,39 @@ public class NV extends JFrame implements ActionListener{
             }
 
             Energy = new JLabel();
-            Energy.setBounds(15, 5, 200, 15);
             double enrg = Math.round((kcal*(amount/100)) * 100.0) / 100.0;
-            Energy.setText("Energy: " + enrg + " kcal");
+            String energ = "Energy: " + String.valueOf(enrg) + " kcal";
+            lab.setLabel(Energy, energ, 15, 5, 200, 15);
 
             Fat = new JLabel();
-            Fat.setBounds(15, 35, 200, 15);
             double fatt = Math.round((FatG*(amount/100)) * 100.0) / 100.0;
-            Fat.setText("Fat: " + fatt + " g");
+            String fat = "Fat: " + String.valueOf(fatt) + " g";
+            lab.setLabel(Fat, fat, 15, 35, 200, 15);
 
             SatFat = new JLabel();
-            SatFat.setBounds(15, 65, 200, 15);
             double FatS = Math.round((SFatG*(amount/100)) * 100.0) / 100.0;
-            SatFat.setText("Saturated Fat: " + FatS + " g");
+            String sfat = "Saturated Fat: " + String.valueOf(FatS) + " g";
+            lab.setLabel(SatFat, sfat, 15, 65, 200, 15);
 
             Carb = new JLabel();
-            Carb.setBounds(15, 95, 200, 15);
-            double carboh = Math.round((CarbG*(amount/100)) * 100.0) / 100.0;
-            Carb.setText("Carbohydrates: " + carboh + " g");
+            double carbon = Math.round((CarbG*(amount/100)) * 100.0) / 100.0;
+            String carbs = "Carbohydrates: " + String.valueOf(carbon) + " g";
+            lab.setLabel(Carb, carbs, 15, 95, 200, 15);
 
             Sug = new JLabel();
-            Sug.setBounds(15, 125, 200, 15);
             double suga = Math.round((SugG*(amount/100)) * 100.0) / 100.0;
-            Sug.setText("Sugar: " + suga + " g");
+            String sug = "Sugar: " + String.valueOf(suga) + " g";
+            lab.setLabel(Sug, sug, 15, 125, 200, 15);
 
             Prt = new JLabel();
-            Prt.setBounds(15, 155, 200, 15);
             double prot = Math.round((ProtG*(amount/100)) * 100.0) / 100.0;
-            Prt.setText("Proteins: " + prot  + " g");
+            String prots = "Protein: " + String.valueOf(prot) + " g";
+            lab.setLabel(Prt, prots, 15, 155, 200, 15);
 
             Sodium = new JLabel();
-            Sodium.setBounds(15, 185, 200, 15);
             double sod = Math.round((SodiumMg*(amount/100)) * 100.0) / 100.0;
-            Sodium.setText("Sodium: " + sod  + " mg");
+            String sodium = "Sodium: " + String.valueOf(sod) + " mg";
+            lab.setLabel(Sodium, sodium, 15, 185, 200, 15);
 
             img = new ImageIcon(label);
             pic = new JLabel(img);
@@ -181,25 +200,20 @@ public class NV extends JFrame implements ActionListener{
 
             class Drawing extends JComponent {
                 public void paint(Graphics g) {
-
                     // draw and display the line
                     g.drawLine(0, 205, 400, 205);
                 }
             }
 
             binfo = new JLabel();
-            binfo.setBounds(125, 201, 150, 50);
-            binfo.setText("<html>In order to burn it you would have to: </html>");
-            binfo.setVisible(true);
-
-            //run, walk, swim, bike;
+            lab.setLabel(binfo, "<html>In order to burn it you would have to: </html>", 125, 201, 150, 50);
 
             int a;
             int b;
 
             run = new JLabel();
             run.setBounds(30, 260, 175, 15);
-            //using if so that there wont be unnecesary 0km and x m
+            //using if so that there wont be unnecesary "0km and x m"
             if (enrg > 62){
                 a = (int) enrg / 62;
                 b = (int) ((enrg / 62) * 1000) - a * 1000;
@@ -262,27 +276,115 @@ public class NV extends JFrame implements ActionListener{
                 bike.setText("bike : 1 h");
             bike.setVisible(true);
 
-            frame2 = new JFrame();
-            frame2.setTitle("Nutrition Values - results");
-            frame2.setSize(400, 360);
+            frame1 = new JFrame();
+            frame1.setTitle("Nutrition Values - results");
+            frame1.setSize(400, 360);
+            frame1.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+            frame1.setVisible(true);
+
+            frame1.add(Energy);
+            frame1.add(Fat);
+            frame1.add(SatFat);
+            frame1.add(Carb);
+            frame1.add(Sug);
+            frame1.add(Prt);
+            frame1.add(Sodium);
+            frame1.add(pic);
+            frame1.add(binfo);
+            frame1.add(run);
+            frame1.add(walk);
+            frame1.add(swim);
+            frame1.add(bike);
+            frame1.getContentPane().add(new Drawing());
+            frame1.setResizable(false);
+            frame1.setLocationRelativeTo(null);
+
+
+        }
+        else if (actionEvent.getSource() == addFood){
+            frame2 = new JFrame("Add your own Food!");
+            frame2.setSize(400, 350);
+            frame2.setVisible(true);;
+            frame2.setLayout(null);
             frame2.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-            frame2.setVisible(true);
-            frame2.add(Energy);
-            frame2.add(Fat);
-            frame2.add(SatFat);
-            frame2.add(Carb);
-            frame2.add(Sug);
-            frame2.add(Prt);
-            frame2.add(Sodium);
-            frame2.add(pic);
-            frame2.add(binfo);
-            frame2.add(run);
-            frame2.add(walk);
-            frame2.add(swim);
-            frame2.add(bike);
-            frame2.getContentPane().add(new Drawing());
+            frame2.getContentPane().setBackground(new Color(206, 205, 203));
             frame2.setResizable(false);
             frame2.setLocationRelativeTo(null);
+
+            energyIn = new JLabel();
+            lab.setLabel(energyIn, "Energy: ", 15, 5, 150, 15);
+
+            fatIn = new JLabel();
+            lab.setLabel(fatIn, "Fat: ", 15, 35, 150, 15);
+
+            satFatIn = new JLabel();
+            lab.setLabel(satFatIn, "Saturated fat: ", 15, 65, 150, 15);
+
+            carbIn = new JLabel();
+            lab.setLabel(carbIn, "Carbohydrates: ", 15, 95, 150, 15);
+
+            sugIn = new JLabel();
+            lab.setLabel(sugIn, "Sugar: ", 15, 125, 150, 15);
+
+            protIn = new JLabel();
+            lab.setLabel(protIn, "Protein: ", 15, 155, 150, 15);
+
+            sodIn = new JLabel();
+            lab.setLabel(sodIn, "Sodium: ", 15, 185, 150, 15);
+
+
+            enInput = new JTextField();
+            textfield.setTextField(enInput, 155, 5, 150, 18);
+
+            fatInput = new JTextField();
+            textfield.setTextField(fatInput, 155, 35, 150, 18);
+
+            satFatInput = new JTextField();
+            textfield.setTextField(satFatInput, 155, 65, 150, 18);
+
+            carbInput = new JTextField();
+            textfield.setTextField(carbInput, 155, 95, 150, 18);
+
+            sugInput = new JTextField();
+            textfield.setTextField(sugInput, 155, 125, 150, 18);
+
+            protInput = new JTextField();
+            textfield.setTextField(protInput, 155, 155, 150, 18);
+
+            sodInput = new JTextField();
+            textfield.setTextField(sodInput, 155, 185, 150, 18);
+
+
+            add = new JButton();
+            add.addActionListener(this);
+            add.setBorder(new RoundBtn(10));
+            button.setButton(add, "Add", 225, 235, 150, 50);
+
+
+            frame2.add(energyIn);
+            frame2.add(fatIn);
+            frame2.add(satFatIn);
+            frame2.add(carbIn);
+            frame2.add(sugIn);
+            frame2.add(protIn);
+            frame2.add(sodIn);
+
+            frame2.add(enInput);
+            frame2.add(fatInput);
+            frame2.add(satFatInput);
+            frame2.add(carbInput);
+            frame2.add(sugInput);
+            frame2.add(protInput);
+            frame2.add(sodInput);
+
+            frame2.add(add);
+
+            if (actionEvent.getSource() == add){
+                dispose();
+                //todo
+            }
+
+//            nergyIn, fatIn, satFatIn, carbIn, sugIn, protIn, sodIn;
 
 
         }

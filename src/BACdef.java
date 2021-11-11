@@ -2,6 +2,9 @@ import javax.swing.*;
 import java.awt.*;
 
 public class BACdef extends JFrame {
+    //methods
+    Methods lab = new Methods();
+
     JFrame frame;
     JLabel definition;
 
@@ -17,9 +20,8 @@ public class BACdef extends JFrame {
         frame.setLocationRelativeTo(null);
 
         definition = new JLabel();
-        definition.setBounds(1, 1, 300, 150);
-        definition.setText("<html> BAC - Blood Alcohol Concentration : <br/><br/> It is the percentage of alcohol in the bloodstream: under the laws of most states, a BAC of 0.10 is the legal definition of intoxication, although a few states use a slightly lower percentage, as 0.08. </html>");
-        definition.setVisible(true);
+        lab.setLabel(definition, "<html> BAC - Blood Alcohol Concentration : <br/><br/> It is the percentage of alcohol in the bloodstream: under the laws of most states, a BAC of 0.10 is the legal definition of intoxication, although a few states use a slightly lower" +
+                " percentage, as 0.08. </html>", 1, 1, 300, 150);
         frame.add(definition);
     }
 }

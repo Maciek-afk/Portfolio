@@ -2,10 +2,16 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.image.Kernel;
-import java.text.DecimalFormat;
+
 
 public class BAC extends JFrame implements ActionListener {
+//    methods
+    Methods button = new Methods();
+    Methods lab = new Methods();
+    Methods textfield = new Methods();
+    Methods combobox = new Methods();
+    Methods radiobutton = new Methods();
+
     JFrame frame;
     JLabel alcoTypeLabel, alcoAmountLabel, gender, weightLabel, time, info;
     JComboBox alcType, inputType, one, two, three, four, five, six, seven, eight, nine, ten;
@@ -14,9 +20,9 @@ public class BAC extends JFrame implements ActionListener {
     JRadioButton male, female;
 
     JFrame frame2;
-    JLabel yourBAC, BACtext, BACcatLabel, BACcatText;
+    JLabel yourBAC, BACtext, BACcatLabel, BACcatText, permilleText, yourpermille;
     public String alcChosen, typeOfInput, BACcat;
-    public double BAC;
+    public double BAC, permille;
     public int drinks, alcohol, temp;
 
 
@@ -34,64 +40,46 @@ public class BAC extends JFrame implements ActionListener {
 
 //          TYPE OF ALCOHOL WITH THE CHOICE
 
-
         alcoTypeLabel = new JLabel();
-        alcoTypeLabel.setBounds( 5, 15, 200, 30);
-        alcoTypeLabel.setText("Type of alcohol");
-        alcoTypeLabel.setVisible(true);
-        add(alcoTypeLabel);
+        lab.setLabel(alcoTypeLabel, "Type of alcohol", 5, 15, 200, 30);
 
-//        alcType = new JComboBox();
         String[] types = {"Vodka", "Beer", "Wine"};
         alcType = new JComboBox(types);
-        alcType.setVisible(true);
-        alcType.setBounds(200, 15, 150, 30);
-        add(alcType);
+        combobox.setComboBox(alcType, 200, 15, 150, 30);
 
-//        AMOUNT OF ALCOHOL WITH THE INPUT
-
+//        AMOUNT OF ALCOHOL WITH THE INPUT and type of input (kg/g/lbs/oz/bottles/shots)
 
         alcoAmountLabel = new JLabel();
-        alcoAmountLabel.setBounds(5, 65, 200, 30);
-        alcoAmountLabel.setText("Alcohol Amount :");
-        alcoAmountLabel.setVisible(true);
-        add(alcoAmountLabel);
+        lab.setLabel(alcoAmountLabel, "Alcohol amount: ", 5, 65, 200, 30);
 
         alcAmount = new JTextField();
-        alcAmount.setBounds(50, 105, 150, 30);
-        alcAmount.setVisible(true);
-        alcAmount.setLayout(null);
-        add(alcAmount);
+        textfield.setTextField(alcAmount, 50, 105, 150, 30);
 
         String[] lqInput = {"shot 40ml/1.35oz", "bottle 500ml/16.9oz", "bottle 350ml/11.8oz", "ounces", "milliliters", "gallons",  "litres"};
         inputType = new JComboBox(lqInput);
-        inputType.setVisible(true);
-        inputType.setBounds(210, 105, 150, 30);
-        add(inputType);
+        combobox.setComboBox(inputType, 210, 105, 150, 30);
 
 
-//        GENDER CHOICE WITH 2 CHOICES
-
+//        GENDER CHOICE WITH 2 OPTIONS
 
         gender = new JLabel();
-        gender.setBounds(5, 160, 200, 30);
-        gender.setText("What is Your gender? ");
-        gender.setVisible(true);
-        add(gender);
+        lab.setLabel(gender, "What is Your gender? ", 5, 160, 200, 30);
 
-        /*
-        next to each other
-         */
+
+
+
+//        next to each other
+
         male = new JRadioButton("Male");
-        male.setBounds(200, 160, 60, 30);
+        radiobutton.setRadioButton(male, 200, 160, 60, 30);
         male.setBackground(new Color(206, 205, 203));
-        add(male);
 
         female = new JRadioButton("Female");
+        radiobutton.setRadioButton(female, 270, 160, 100, 30);
         female.setBounds(270, 160, 100, 30);
         female.setBackground(new Color(206, 205, 203));
-        add(female);
 
+        //so that only one at time can be chosen
         ButtonGroup group = new ButtonGroup();
         group.add(female);
         group.add(male);
@@ -110,76 +98,63 @@ public class BAC extends JFrame implements ActionListener {
          */
 
 
+
 //        WEIGHT WITH INPUT FIELD
 
-
         weightLabel = new JLabel();
-        weightLabel.setBounds(5, 205, 200, 30);
-        weightLabel.setText("How much do you weight?");
-        weightLabel.setVisible(true);
-        add(weightLabel);
+        lab.setLabel(weightLabel, "How much do you weight?", 5, 205, 200, 30);
+
+
 
         wghtIn = new JTextField();
-        wghtIn.setBounds(200, 205, 150, 30);
-        wghtIn.setVisible(true);
-        wghtIn.setLayout(null);
-        add(wghtIn);
+        textfield.setTextField(wghtIn, 200, 205, 150, 30);
 
 
 //        TIME WITH INPUT
 
-
         time = new JLabel();
-        time.setText("Hours since 1st drink?");
-        time.setBounds(5, 245, 200, 30);
-        time.setVisible(true);
-        time.setLayout(null);
-        add(time);
+        lab.setLabel(time, "Hours since 1st drink?", 5, 245, 200, 30);
 
         timeIn = new JTextField();
-        timeIn.setBounds(200, 245, 150, 30);
-        timeIn.setVisible(true);
-        timeIn.setLayout(null);
-        add(timeIn);
+        textfield.setTextField(timeIn, 200, 245, 150, 30);
 
 
 //        INFO ON LIQ AMOUNTS
 
-
         info = new JLabel();
-        info.setBounds(0, 295, 400, 80);
-        info.setText("<html><font size=\"5\" face=\"verdana\" color=\"red\">All fields must be filled</font></html>");
+        lab.setLabel(info, "<html><font size=\"5\" face=\"verdana\" color=\"red\" >All fields must be filled</font></html", 0, 295, 400, 80);
         info.setHorizontalAlignment(SwingConstants.CENTER);
         info.setVerticalAlignment(SwingConstants.CENTER);
-        info.setVisible(true);
-        add(info);
 
 
+//          MENU AND CALC BUTTONS
 
-
-
-//        BUTTONS FOR MENU AND CALC
-
-
-
-        menu = new JButton("Return to menu");
-        menu.setBounds(25, 380, 160, 50);
-        menu.setVisible(true);
+        menu = new JButton();
+        button.setButton(menu, "Return to menu", 25, 380, 160, 50);
         menu.addActionListener(this);
-        add(menu);
+        menu.setBorder(new RoundBtn(10));
 
-        calc = new JButton("Calculate");
-        calc.setBounds(220, 380, 160, 50);
-        calc.setVisible(true);
+        calc = new JButton();
+        button.setButton(calc, "Calculate", 220, 380, 160, 50);
         calc.addActionListener(this);
-        add(calc);
-/*
-The following are considered as one drink:
- 1.25 oz. of 80 proof liquor,
- 12 oz. of beer,
- or 5 oz. of table wine.
-    */
 
+
+
+        add(alcoTypeLabel);
+        add(alcType);
+        add(alcoAmountLabel);
+        add(alcAmount);
+        add(inputType);
+        add(gender);
+        add(male);
+        add(female);
+        add(weightLabel);
+        add(wghtIn);
+        add(time);
+        add(timeIn);
+        add(info);
+        add(menu);
+        add(calc);
 
 
     }
@@ -214,11 +189,11 @@ The following are considered as one drink:
             else if (typeOfInput.equalsIgnoreCase("ounces"))
                 alcohol *= 29.5735296875;
             else if (typeOfInput.equalsIgnoreCase("shot 40ml/1.35oz"))
-                alcohol /= 40;
+                alcohol *= 40;
             else if (typeOfInput.equalsIgnoreCase("bottle 500ml/16.9oz"))
-                alcohol /= 500;
+                alcohol *= 500;
             else if (typeOfInput.equalsIgnoreCase("bottle 350ml/11.8oz"))
-                alcohol /= 350;
+                alcohol *= 350;
 
 //            calculating amount of drinks and storing it in integer called drinks
             if (alcChosen.equalsIgnoreCase("Vodka"))
@@ -227,6 +202,8 @@ The following are considered as one drink:
                 drinks = alcohol/350;
             else if (alcChosen.equalsIgnoreCase("Wine"))
                 drinks = alcohol/150;
+
+
 
             if (male.isSelected()){
                 double[][] bacArrayM = new double[7][10];
@@ -335,7 +312,7 @@ The following are considered as one drink:
                     if (drinks < 10 && drinks > 0)
                         j = drinks - 1;
                     else if (drinks >= 10)
-                        j = 10;
+                        j = 9;
                     else if (drinks < 1)
                         j = 0;
 
@@ -437,24 +414,32 @@ The following are considered as one drink:
             }
 
             BACtext = new JLabel();
-            BACtext.setBounds(75, 5, 150, 35);
-            BACtext.setVisible(true);
-            BACtext.setText("Your BAC is : ");
+            lab.setLabel(BACtext, "Your BAC is : ", 75, 5, 100, 35);
 
             yourBAC = new JLabel();
-            yourBAC.setBounds(100, 45, 200, 50);
+            yourBAC.setBounds(50, 45, 175, 50);
             yourBAC.setVisible(true);
 
-            if (BAC < 0) {
-                BAC = 0;
-            }else if (drinks > 0 && drinks <= 10 ) {
+            if (((BAC - (0.15*time)) > 0) && (drinks > 0 && drinks <= 10)) {
                 BAC = BAC - (0.15 * time);
-                yourBAC.setText("around " + String.valueOf(BAC));
+                yourBAC.setText("around " + String.valueOf(BAC) + "mg/100ml");
             }else if (drinks > 10) {
-                yourBAC.setText("at least " + String.valueOf(BAC));
-            }else {
-                yourBAC.setText("at most " + String.valueOf(BAC));
-            }
+                yourBAC.setText("at least " + String.valueOf(BAC) + "mg/100ml");
+            }else if ((BAC - (time*0.15)) <= 0) {
+                yourBAC.setText("0 mg/100ml");
+            }else
+                yourBAC.setText("ERROR");
+
+            permilleText = new JLabel();
+            lab.setLabel(permilleText, "That is equal to around : ", 250, 5, 200, 35);
+
+            permille = BAC * 10;
+            yourpermille = new JLabel();
+            lab.setLabel(yourpermille, String.valueOf(permille) + "‰", 275, 45, 100, 35);
+
+
+
+
 
             if (BAC <= 0.05 && BAC >= 0.01)
                 temp = 1;
@@ -469,39 +454,99 @@ The following are considered as one drink:
             else if (BAC > 0.4)
                 temp = 6;
 
+            switch(temp){
+                case 1:
+                    BACcat = "<html>" +
+                            "<ul>\n" +
+                            "  <li>Lowered inhibitions, feeling of relaxation</li>\n" +
+                            "  <li>some loss of muscular coordination</li>\n" +
+                            "  <li>decreased alertness</li>\n" +
+                            "  <li>reduced social inhibitions</li>\n" +
+                            "</ul>  " +
+                            "<html>";
+                    break;
+
+                case 2:
+                    BACcat = "<html>" +
+                            "<ul>\n" +
+                            "  <li>impaired ability to drive</li>\n" +
+                            "  <li>further loss of coordination</li>\n" +
+                            "  <li>slowed reaction time</li>\n" +
+                            "</ul>  " +
+                            "<html>";;
+                    break;
+
+                case 3:
+                    BACcat = "<html>" +
+                            "<ul>\n" +
+                            "  <li>Clumsiness, exaggerated emotions</li>\n" +
+                            "  <li>unsteadiness standing or walking</li>\n" +
+                            "  <li>argumentative and often hostile behavior</li>\n" +
+                            "</ul>  " +
+                            "<html>";;
+                    break;
+
+                case 4:
+                    BACcat = "<html>" +
+                            "<ul>\n" +
+                            "  <li>slurred speach</li>\n" +
+                            "  <li>confused speech</li>\n" +
+                            "  <li>severe intoxication</li>\n" +
+                            "  <li>incapacitated, loss of feeling</li>\n" +
+                            "  <li>inability to walk without help</li>\n" +
+                            "</ul>  " +
+                            "<html>";;
+                    break;
+
+                case 5:
+                    BACcat = "<html>" +
+                            "<ul>\n" +
+                            "  <li>Difficulty to rouse</li>\n" +
+                            "  <li>Life-threatening unconsciousness</li>\n" +
+                            "  <li>Coma</li>\n" +
+                            "</ul>  " +
+                            "<html>";;
+                    break;
+
+                case 6:
+                    BACcat = "<html>" +
+                            "<ul>\n" +
+                            "  <li>Death from heart and lung failure</li>\n" +
+                            "</ul>  " +
+                            "<html>";;
+                    break;
+
+
+            }
+
             
             
             BACcatLabel = new JLabel();
-            BACcatLabel.setBounds(75, 85, 150, 35);
-            BACcatLabel.setVisible(true);
-            BACcatLabel.setText("Your BAC category : ");
+            lab.setLabel(BACcatLabel, "<html><font size=\"3\" face=\"verdana\" >Most probable symptoms :</font></html>", 75, 110, 200, 35);
 
             BACcatText = new JLabel();
-            BACcatText.setBounds(100, 125, 150, 35);
-            BACcatText.setVisible(true);
-            BACcatText.setText(BACcat);
-
-
-
-//            BACcatText
+            lab.setLabel(BACcatText, BACcat, 50, 125, 250, 150);
 
 
             frame2 = new JFrame();
             frame2.setTitle("Fit Ass - BAC results");
-            frame2.setSize(300, 200);
+            frame2.setSize(500, 500);
             frame2.setLayout(null);
             frame2.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
             frame2.setVisible(true);
             frame2.setResizable(false);
             frame2.setLocationRelativeTo(null);
-            frame2.add(yourBAC);
             frame2.add(BACtext);
+            frame2.add(yourBAC);
+            frame2.add(permilleText);
             frame2.add(BACcatLabel);
             frame2.add(BACcatText);
+            frame2.add(yourpermille);
 
 
         } else if (actionEvent.getSource() == menu) {
             Menu backToMenu = new Menu();
+            dispose();
         }
     }
 }

@@ -4,6 +4,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class Menu extends JFrame implements ActionListener {
+    //methods
+    Methods lab = new Methods();
+    Methods button = new Methods();
+
     JLabel greeting, question;
     JButton BMI, BMIdef, NV, BAC, BACdef, backToStart;
 
@@ -17,65 +21,52 @@ public class Menu extends JFrame implements ActionListener {
         setResizable(false);
         setLocationRelativeTo(null);
 
+        // labels
         greeting = new JLabel();
-        greeting.setText("Let's get healthy and responsible!");
-        greeting.setBounds(160, 50, 250, 50);
-        greeting.setVisible(true);
-        add(greeting);
-
+        lab.setLabel(greeting, "Let's get healthy and responsible!", 160, 50, 250, 50);
 
         question = new JLabel();
-        question.setText("What would You like to do?");
-        question.setBounds(175, 100, 200, 50);
-        question.setVisible(true);
-        add(question);
+        lab.setLabel(question, "What would You like to do?", 175, 100, 200, 50);
 
+        //buttons
         BMI = new JButton();
-        BMI.setText("Check Your BMI");
-        BMI.setBounds(135, 200, 150, 50);
-        BMI.setVisible(true);
+        button.setButton(BMI, "Check Your BMI", 135, 200, 150, 50);
         BMI.addActionListener(this);
         BMI.setBorder(new RoundBtn(10));
-        add(BMI);
 
         BMIdef = new JButton();
-        BMIdef.setText("BMI def");
-        BMIdef.setBounds(290, 200, 95, 50);
-        BMIdef.setVisible(true);
+        button.setButton(BMIdef, "BMI def", 290, 200, 95, 50);
         BMIdef.setBorder(new RoundBtn(10));
         BMIdef.addActionListener(this);
-        add(BMIdef);
 
         NV = new JButton();
-        NV.setText("Check nutrient value");
-        NV.setBounds(135, 300, 250, 50);
-        NV.setVisible(true);
+        button.setButton(NV, "Check nutrient value", 135, 300, 250, 50);
         NV.addActionListener(this);
         NV.setBorder(new RoundBtn(10));
-        add(NV);
 
         BAC = new JButton();
-        BAC.setText("Check Your BAC");
-        BAC.setBounds(135, 400, 150, 50);
-        BAC.setVisible(true);
+        button.setButton(BAC, "Check Your BAC", 135, 400, 150, 50);
         BAC.addActionListener(this);
         BAC.setBorder(new RoundBtn(10));
-        add(BAC);
 
         BACdef = new JButton();
-        BACdef.setText("BAC def");
-        BACdef.setBounds(290, 400, 95, 50);
-        BACdef.setVisible(true);
+        button.setButton(BACdef, "BAC def", 290, 400, 95, 50);
         BACdef.addActionListener(this);
         BACdef.setBorder(new RoundBtn(10));
-        add(BACdef);
 
         backToStart = new JButton();
-        backToStart.setText("Go back to Start");
-        backToStart.setBounds(10, 490, 150, 50);
-        backToStart.setVisible(true);
+        button.setButton(backToStart, "Go back to start", 10, 490, 150, 50);
         backToStart.addActionListener(this);
         backToStart.setBorder(new RoundBtn(10));
+
+        //adding components to JFrame
+        add(greeting);
+        add(question);
+        add(BMI);
+        add(BMIdef);
+        add(NV);
+        add(BAC);
+        add(BACdef);
         add(backToStart);
     }
 
@@ -90,7 +81,6 @@ public class Menu extends JFrame implements ActionListener {
             NV openNV = new NV();
             dispose();
         } else if (actionEvent.getSource() == BAC){
-//            PreBAC openBAC = new PreBAC();
             BAC openBAC = new BAC();
             dispose();
         } else if (actionEvent.getSource() == BACdef){

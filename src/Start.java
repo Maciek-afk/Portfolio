@@ -4,6 +4,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class Start extends JFrame implements ActionListener {
+    //methods
+    Methods lab = new Methods();
+    Methods button = new Methods();
+
     JFrame age;
     JLabel greeting, question;
     JButton yes, no;
@@ -21,31 +25,24 @@ public class Start extends JFrame implements ActionListener {
         age.setLocationRelativeTo(null);
 
         greeting = new JLabel();
-        greeting.setText("Hi! Just a quick question.");
-        greeting.setBounds(160, 50, 200, 50);
-        greeting.setVisible(true);
-        age.add(greeting);
+        lab.setLabel(greeting, "Hi! Just a quick question", 160, 50, 200, 50);
 
         question = new JLabel();
-        question.setText("Are you over 18 years old?");
-        question.setBounds(155, 100, 200, 50);
-        question.setVisible(true);
-        age.add(question);
+        lab.setLabel(question, "Are you over 18 years old?", 155, 100, 200, 50);
 
         yes = new JButton();
-        yes.setText("Yes");
-        yes.setBounds(100, 200, 100, 50);
-        yes.setVisible(true);
+        button.setButton(yes, "Yes", 100, 200, 100, 50);
         yes.addActionListener(this);
         yes.setBorder(new RoundBtn(10));
-        age.add(yes);
 
         no = new JButton();
-        no.setText("No");
-        no.setBounds(300, 200, 100, 50);
-        no.setVisible(true);
+        button.setButton(no, "No", 300, 200, 100, 50);
         no.addActionListener(this);
         no.setBorder(new RoundBtn(10));
+
+        age.add(greeting);
+        age.add(question);
+        age.add(yes);
         age.add(no);
     }
 

@@ -4,12 +4,14 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class MenuUA extends JFrame implements ActionListener {
+    //methods
+    Methods lab = new Methods();
+    Methods button = new Methods();
+
     JFrame frame;
     JLabel greeting, question;
     JButton BMI, NV, backToStart, BMIdef, xxxx;
     
-    //Labels
-    Methods button = new Methods();
 
     MenuUA() {
         frame = new JFrame();
@@ -23,59 +25,45 @@ public class MenuUA extends JFrame implements ActionListener {
         setLocationRelativeTo(null);
 
         greeting = new JLabel();
-        greeting.setText("Let's get healthy and responsible!");
-        greeting.setBounds(160, 50, 250, 50);
-        greeting.setVisible(true);
-        add(greeting);
+        lab.setLabel(greeting, "Let's get healthy and responsible", 160, 50, 250, 50);
+
 
         question = new JLabel();
-        question.setText("What would You like to do?");
-        question.setBounds(175, 100, 200, 50);
-        question.setVisible(true);
-        add(question);
+        lab.setLabel(question, "What would You like to do?", 175, 100, 200, 50);
+
+
 
         BMI = new JButton();
-//        button.setButton(BMI, "Check Your BMI", 135, 200, 150, 50);
-        BMI = new JButton();
-        BMI.setText("Check Your BMI");
-        BMI.setBounds(135, 200, 150, 50);
-        BMI.setVisible(true);
+        button.setButton(BMI, "Check Your BMI", 135, 200, 150, 50);
         BMI.addActionListener(this);
         BMI.setBorder(new RoundBtn(10));
-        add(BMI);
-
-
 
         BMIdef = new JButton();
-        BMIdef.setText("BMI def");
-        BMIdef.setBounds(290, 200, 95, 50);
-        BMIdef.setVisible(true);
+        button.setButton(BMIdef, "BMI def", 290, 200, 95, 50);
         BMIdef.addActionListener(this);
         BMIdef.setBorder(new RoundBtn(10));
-        add(BMIdef);
 
         NV = new JButton();
-        NV.setText("Check nutrient value");
-        NV.setBounds(135, 300, 250, 50);
-        NV.setVisible(true);
+        button.setButton(NV, "Check nutrient value", 135, 300, 250, 50);
         NV.addActionListener(this);
         NV.setBorder(new RoundBtn(10));
-        add(NV);
 
         xxxx = new JButton();
-        xxxx.setText("????");
-        xxxx.setBounds(135, 400, 250, 50);
-        xxxx.setVisible(true);
+        button.setButton(xxxx, "????", 135, 400, 250, 50);
         xxxx.addActionListener(this);
         xxxx.setBorder(new RoundBtn(10));
-        add(xxxx);
 
         backToStart = new JButton();
-        backToStart.setText("Go back to Start");
-        backToStart.setBounds(5, 500, 150, 50);
-        backToStart.setVisible(true);
+        button.setButton(backToStart, "Go back to start", 5, 500, 150, 50);
         backToStart.addActionListener(this);
         backToStart.setBorder(new RoundBtn(10));
+
+        add(greeting);
+        add(question);
+        add(BMI);
+        add(BMIdef);
+        add(NV);
+        add(xxxx);
         add(backToStart);
     }
 

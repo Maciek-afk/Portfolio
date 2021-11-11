@@ -1,1 +1,2 @@
- in bmi/nv, after "go back to menu", returns to +18 menu --> ???
+plik tekstowy
+podlaczyc do nowej klasy (access modifiers, pusty konstruktor, mutator methods)
