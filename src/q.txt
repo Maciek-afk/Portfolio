@@ -1,2 +1,0 @@
-plik tekstowy
-podlaczyc do nowej klasy (access modifiers, pusty konstruktor, mutator methods)
